@@ -29,7 +29,8 @@ exports.signup = (req, res, next) => {
                 console.log(req.body);
                 bcrypt.hash(req.body.password, 10)
                     .then(cryptedPassword => {
-                        con.query(`INSERT INTO user VALUES (NULL, '${req.body.nom}', '${req.body.email}', '${cryptedPassword}', '${req.body.photo}')`,
+                        const newUser = `INSERT INTO user VALUES (NULL, '${req.body.nom}', '${req.body.email}', '${cryptedPassword}', '${req.body.photo}')`;
+                        con.query(newUser,
                             (err) => {
                                 if (err) {
                                     console.log(err);
@@ -49,22 +50,39 @@ exports.login = (req, res, next) => {
     const email = req.body.email
     con.query(`SELECT * FROM user WHERE email='${email}'`,
         (err, results) => {
-            if (results.length > 0) {
+            if (results.length == 1) {
                 bcrypt.compare(req.body.password, results[0].password)
                     .then(ok => {
                         if (!ok) {
                             res.status(401).json({ message: 'mot de passe incorrect !' })
                         } else {
                             res.status(200).json({
-                                id: results[0],
-                                nom: results[0],
-                                email: results[0],
+                                id: results[0].id,
+                                nom: results[0].nom,
+                                email: results[0].email,
                                 token: jwt.sign({ userID: results[0].id }, 'RANDOM_SECRET_TOKEN', { expiresIn: '24h' })
                             })
                         }
                     })
             } else {
                 res.status(404).json({ message: 'l\'utilisateur est inconnu !' })
+            }
+        });
+};
+exports.deleteUser = (req, res, next) => {
+    const email = req.body.email
+    con.query(`SELECT * FROM user WHERE email='${email}'`,
+        (err, results) => {
+            if (results.length < 0) {
+                res.status(404).json({ message: 'l\'utilisateur est inconnu !' })
+            } else {
+
+                con.query(`DELETE FROM user WHERE email='${email}'`,
+                    (err,) => {
+
+                        res.status(201).json({ message: 'l\'utilisateur a été supprimé !' })
+                    }
+                )
             }
         });
 };
