@@ -1,9 +1,12 @@
 const express = require('express');
 const router = express.Router();
-const commentaire = require('../controllers/commentaire')
+const commentaire = require('../controllers/commentaire');
+const auth = require('../middleware/auth');
+const multer = require('../middleware/multer-config');
+
 
 router.get('/', commentaire.allComPub);
-router.post('/', commentaire.newCom);
+router.post('/', auth, multer, commentaire.newCom);
 router.delete('/:id', commentaire.delOneCom);
 
 module.exports = router

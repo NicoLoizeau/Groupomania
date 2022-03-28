@@ -4,10 +4,12 @@ const user = require('./routes/user');
 const publication = require('./routes/publication');
 const commentaire = require('./routes/commentaire');
 const app = express();
+const path = require('path');
 
 app.use(express.json());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use('/images', express.static(path.join(__dirname, 'images')));
 
 
 ////// CORS accept cross-orrigin//////

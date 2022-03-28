@@ -1,6 +1,7 @@
 const bodyParser = require('body-parser');
 const con = require('../cluster');
 const Publication = require('../models/publication');
+const fs = require('fs');
 
 exports.newPub = (req, res, next) => {
     const insert = `INSERT INTO publication VALUES (NULL, '${req.body.titre}', '${req.body.description}', '${req.body.image}', '${req.body.date}', '${req.body.user}')`

@@ -3,6 +3,7 @@ const con = require('../cluster');
 const User = require('../models/user');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+const fs = require('fs');
 
 exports.list = (req, res, next) => {
     const select = 'SELECT * FROM user'
@@ -18,7 +19,8 @@ exports.list = (req, res, next) => {
     })
 }
 exports.signup = (req, res, next) => {
-    const email = req.body.email
+    const email = req.body.email;
+    const photo = `${req.protocol}://${req.get('host')}/images/${req.file.filename}`;
     con.query(`SELECT * FROM user WHERE email='${email}'`,
         (err, results) => {
             if (results.length > 0) {
@@ -29,7 +31,7 @@ exports.signup = (req, res, next) => {
                 console.log(req.body);
                 bcrypt.hash(req.body.password, 10)
                     .then(cryptedPassword => {
-                        const newUser = `INSERT INTO user VALUES (NULL, '${req.body.nom}', '${req.body.email}', '${cryptedPassword}', '${req.body.photo}')`;
+                        const newUser = `INSERT INTO user VALUES (NULL, '${req.body.nom}', '${req.body.email}', '${cryptedPassword}', '${photo}')`;
                         con.query(newUser,
                             (err) => {
                                 if (err) {
@@ -37,7 +39,7 @@ exports.signup = (req, res, next) => {
                                     return res.status(400).json("erreur!");
                                 }
                                 return res.status(201).json({
-                                    message: 'Votre compte a bien été crée !'
+                                    message: 'Votre compte a bien été créé !'
                                 });
                             }
                         );
@@ -83,6 +85,44 @@ exports.deleteUser = (req, res, next) => {
                         res.status(201).json({ message: 'l\'utilisateur a été supprimé !' })
                     }
                 )
+            }
+        });
+};
+exports.modifyUser = (req, res, next) => {
+    const id = req.body.id;
+    const email = req.body.email;
+    const select = `SELECT * FROM user WHERE id = '${id}'`;
+    con.query(select,
+        (err, results) => {
+            if (results.length == 0) {
+                res.status(401).json({
+                    message: 'Utilisateur non trouvé !'
+                });
+            } else {
+                con.query(`SELECT * FROM user WHERE email = '${email}' and id <> '${id}'`,
+                    (err, results) => {
+                        if (results.length != 0) {
+                            res.status(401).json({
+                                message: 'Email déjà utilisé !'
+                            });
+                        } else {
+                            bcrypt.hash(req.body.password, 10)
+                                .then(cryptedPassword => {
+                                    const updateUser = `UPDATE user SET nom = '${req.body.nom}', email = '${req.body.email}', password = '${cryptedPassword}' WHERE id = '${id}'`;
+                                    con.query(updateUser,
+                                        (err) => {
+                                            if (err) {
+                                                return res.status(400).json("erreur!");
+                                            }
+                                            return res.status(201).json({
+                                                message: 'Votre compte a bien été modifié !'
+                                            });
+                                        }
+                                    );
+                                })
+                                .catch(error => res.status(500).json({ error }));
+                        }
+                    });
             }
         });
 };

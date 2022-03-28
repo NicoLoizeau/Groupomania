@@ -1,6 +1,6 @@
 const con = require('../cluster');
 const Commentaire = require('../models/commentaire');
-
+const fs = require('fs');
 
 exports.newCom = (req, res, next) => {
     const postCom = `NULL, '${req.body.commentaires}', '${req.body.date}', '${req.body.user}', '${req.body.publication}'`;
