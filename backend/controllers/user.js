@@ -20,7 +20,7 @@ exports.list = (req, res, next) => {
 }
 exports.signup = (req, res, next) => {
     const email = req.body.email;
-    const photo = `${req.protocol}://${req.get('host')}/images/${req.file.filename}`;
+    const photo = `${req.protocol}://${req.get('host')}/images/${req.files.photo}`;
     con.query(`SELECT * FROM user WHERE email='${email}'`,
         (err, results) => {
             if (results.length > 0) {
@@ -28,7 +28,6 @@ exports.signup = (req, res, next) => {
                     message: 'Email déjà utilisé !'
                 });
             } else {
-                console.log(req.body);
                 bcrypt.hash(req.body.password, 10)
                     .then(cryptedPassword => {
                         const newUser = `INSERT INTO user VALUES (NULL, '${req.body.nom}', '${req.body.email}', '${cryptedPassword}', '${photo}')`;
@@ -62,7 +61,9 @@ exports.login = (req, res, next) => {
                                 id: results[0].id,
                                 nom: results[0].nom,
                                 email: results[0].email,
-                                token: jwt.sign({ userID: results[0].id }, 'RANDOM_SECRET_TOKEN', { expiresIn: '24h' })
+                                token: jwt.sign({ userID: results[0].id },
+                                    'RANDOM_SECRET_TOKEN',
+                                    { expiresIn: '24h' })
                             })
                         }
                     })
@@ -89,9 +90,12 @@ exports.deleteUser = (req, res, next) => {
         });
 };
 exports.modifyUser = (req, res, next) => {
+    console.log(req.files[0])
+
     const id = req.body.id;
     const email = req.body.email;
     const select = `SELECT * FROM user WHERE id = '${id}'`;
+    const photo = `${req.protocol}://${req.get('host')}/images/${req.files[0].filename}`;
     con.query(select,
         (err, results) => {
             if (results.length == 0) {
@@ -99,7 +103,7 @@ exports.modifyUser = (req, res, next) => {
                     message: 'Utilisateur non trouvé !'
                 });
             } else {
-                con.query(`SELECT * FROM user WHERE email = '${email}' and id <> '${id}'`,
+                con.query(`SELECT * FROM user WHERE email = '${email}' and id <> ${id}`,
                     (err, results) => {
                         if (results.length != 0) {
                             res.status(401).json({
@@ -108,11 +112,13 @@ exports.modifyUser = (req, res, next) => {
                         } else {
                             bcrypt.hash(req.body.password, 10)
                                 .then(cryptedPassword => {
-                                    const updateUser = `UPDATE user SET nom = '${req.body.nom}', email = '${req.body.email}', password = '${cryptedPassword}' WHERE id = '${id}'`;
-                                    con.query(updateUser,
+                                    const updateUser = `UPDATE user SET nom = ?, email = ?, password = ?, photo = ? WHERE id = ${id}`;
+                                    const param = [req.body.nom, req.body.email, cryptedPassword, photo]
+                                    con.query(updateUser, param,
                                         (err) => {
                                             if (err) {
-                                                return res.status(400).json("erreur!");
+                                                console.log(err)
+                                                return res.status(400).json("erreur !");
                                             }
                                             return res.status(201).json({
                                                 message: 'Votre compte a bien été modifié !'
