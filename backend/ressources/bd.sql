@@ -6,7 +6,7 @@ create table user(
     id int(10) primary key auto_increment,
     nom varchar(50),
     email varchar(50) not null unique,
-    password varchar(20),
+    password varchar(250),
     photo varchar(50)
 )
 
