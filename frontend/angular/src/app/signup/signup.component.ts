@@ -1,4 +1,8 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+
+const api = 'http://localhost:3000/api/user/signup';
 
 @Component({
   selector: 'app-signup',
@@ -7,9 +11,38 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SignupComponent implements OnInit {
 
-  constructor() { }
+  nom: string = '';
+  email: string = '';
+  password: string = '';
+  //photo: any = '';
+  show: boolean = false;
+
+  constructor(private http: HttpClient, private router: Router) { }
 
   ngOnInit(): void {
   }
+  signupSubmit(): void {
+    console.log(this.email);
+    console.log(this.password);
+    const body = {
+      nom: this.nom,
+      email: this.email,
+      password: this.password,
+      //photo: this.photo.
+    }
+    this.http.post(api, body)
+      .subscribe(
+        (result) => {
+          this.router.navigate(['/']);
+        },
+        (error) => {
+          console.log(error)
+          this.show = true;
 
+        },
+        () => {
+
+        }
+      )
+  }
 }

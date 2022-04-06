@@ -2,9 +2,12 @@
     <div class="login-page">
         <div class="form">
             <form class="login-form">
-                <input id="email" type="email" placeholder="E-mail" />
-                <input id="password" type="password" placeholder="mot de passe" />
-                <button id="login">login</button>
+                <input [(ngModel)]="email" name="email" type="email" placeholder="E-mail" />
+                <input [(ngModel)]="password" name="password" type="password" placeholder="mot de passe" />
+                <button (click)="loginSubmit()" id="login">login</button>
+                <div *ngIf="show">
+                    <p class="incorrect">Mot de passe ou adresse email incorrect. </p>
+                </div>
                 <p class="message">Pas encore de compte ? <a [routerLink]="['signup']">Créer un compte</a></p>
             </form>
         </div>

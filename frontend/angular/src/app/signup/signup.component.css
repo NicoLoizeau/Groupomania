@@ -58,11 +58,19 @@ input[type="button"] {
     width: 320px;
     height: 35px;
     border: none;
-    background-color: #49c1a2;
+    background-color: #4CAF50;
+    cursor: pointer;
     color: white;
     font-size: 18px;
 }
 
+input[type="button"]:hover,
+input[type="button"]:active,
+input[type="button"]:focus {
+    background: #43A047;
+    -webkit-transition: all 0.3 ease;
+    transition: all 0.3 ease;
+}
 
 .para-2 {
     text-align: center;
@@ -71,5 +79,14 @@ input[type="button"] {
 }
 
 .para-2 a {
-    color: #49c1a2;
+    color: #4CAF50;
+    cursor: pointer;
+}
+
+.para-2 a:hover {
+    font-weight: bolder;
+}
+
+.usedEmail {
+    color: red
 }

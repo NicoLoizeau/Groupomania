@@ -27,6 +27,7 @@
     padding: 15px;
     box-sizing: border-box;
     font-size: 14px;
+
 }
 
 .form button {
@@ -112,4 +113,9 @@ body {
     background-image: url(../../assets/images/icon-above-font.png);
     background-repeat: no-repeat;
     background-position: center;
+}
+
+.incorrect {
+    color: #EF3B3A;
+    margin: 10px;
 }

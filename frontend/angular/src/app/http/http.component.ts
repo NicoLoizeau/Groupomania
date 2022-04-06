@@ -16,12 +16,8 @@ export class HttpComponent implements OnInit {
 
   constructor(private http: HttpClient) { }
 
-  ngOnInit(): any {
-    this.http.get(api).subscribe(
-      (Response) => { console.log(Response) },
-      (error) => { console.log(error) },
-      () => { console.log('complete') }
-    )
+  ngOnInit(): void {
+
   }
 
 }
