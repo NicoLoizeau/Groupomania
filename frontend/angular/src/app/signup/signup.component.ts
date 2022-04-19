@@ -14,7 +14,7 @@ export class SignupComponent implements OnInit {
   nom: string = '';
   email: string = '';
   password: string = '';
-  //photo: any = '';
+  photo: any;
   show: boolean = false;
 
   constructor(private http: HttpClient, private router: Router) { }
@@ -24,12 +24,15 @@ export class SignupComponent implements OnInit {
   signupSubmit(): void {
     console.log(this.email);
     console.log(this.password);
-    const body = {
+    console.log(this.photo);
+    const body: any = {
       nom: this.nom,
       email: this.email,
       password: this.password,
-      //photo: this.photo.
+      file: this.photo
     }
+    console.log(body);
+
     this.http.post(api, body)
       .subscribe(
         (result) => {
@@ -44,5 +47,8 @@ export class SignupComponent implements OnInit {
 
         }
       )
+  }
+  changePhoto(event: any) {
+    this.photo = event.target.files[0];
   }
 }

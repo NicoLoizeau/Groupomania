@@ -3,7 +3,7 @@
         <div class="form">
             <form class="login-form">
                 <input [(ngModel)]="email" name="email" type="email" placeholder="E-mail" />
-                <input [(ngModel)]="password" name="password" type="password" placeholder="mot de passe" />
+                <input [(ngModel)]="password" name="password" type="password" placeholder="Mot de passe" />
                 <button (click)="loginSubmit()" id="login">login</button>
                 <div *ngIf="show">
                     <p class="incorrect">Mot de passe ou adresse email incorrect. </p>

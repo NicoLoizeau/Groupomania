@@ -20,7 +20,9 @@ exports.list = (req, res, next) => {
 }
 exports.signup = (req, res, next) => {
     const email = req.body.email;
-    //const photo = `${req.protocol}://${req.get('host')}/images/${req.files.photo}`;
+    console.log(req.body.file)
+    //const photo = `${req.protocol}://${req.get('host')}/images/${req.file.photo}`;
+    const photo = null;
     con.query(`SELECT * FROM user WHERE email='${email}'`,
         (err, results) => {
             if (results.length > 0) {
@@ -30,7 +32,7 @@ exports.signup = (req, res, next) => {
             } else {
                 bcrypt.hash(req.body.password, 10)
                     .then(cryptedPassword => {
-                        const newUser = `INSERT INTO user VALUES (NULL, '${req.body.nom}', '${req.body.email}', '${cryptedPassword}',NULL)`;//, '${photo}'
+                        const newUser = `INSERT INTO user VALUES (NULL, '${req.body.nom}', '${req.body.email}', '${cryptedPassword}', '${photo}')`
                         con.query(newUser,
                             (err) => {
                                 if (err) {

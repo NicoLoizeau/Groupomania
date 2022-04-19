@@ -10,7 +10,7 @@
             </div>
             <input [(ngModel)]="password" name="password" type="password" placeholder="Mot de passe" />
             <label for="photo">Votre photo</label>
-            <!--<input [(ngModel)]="photo" type="file">-->
+            <input (change)="changePhoto($event)" type="file">
             <input (click)="signupSubmit()" type="button" class="button" value="Valider" />
         </form>
     </div>
