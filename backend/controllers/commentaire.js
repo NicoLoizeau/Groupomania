@@ -20,13 +20,23 @@ exports.newCom = (req, res, next) => {
 
 exports.allComPub = (req, res, next) => {
     const pub = req.body.publication;
-    const select = `SELECT * FROM commentaires WHERE publication = ${pub}`;
+    const select =
+        `SELECT 
+            commentaires.id, 
+            commentaires.commentaires, 
+            date_format(commentaires.date, "%W %M %e %Y") as date, 
+            user.nom,
+            commentaires.publication  
+        FROM commentaires
+            left join user on commentaires.user = user.id 
+        WHERE publication = 3
+        ORDER BY date desc`;//${pub}
     con.query(select, (error, result) => {
         if (error) throw error
         let list = []
         if (result) {
             result.forEach((item) => {
-                list.push(new Commentaire(item['id'], item['commentaire'], item['date'], item['user'], item['publication']))
+                list.push(new Commentaire(item['id'], item['commentaires'], item['date'], item['nom'], item['publication']))
             })
         }
         res.status(200).json({ list })

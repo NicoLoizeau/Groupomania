@@ -1,4 +1,4 @@
-import { Component, OnInit, Renderer2 } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 const api = 'http://localhost:3000/api/publication/';
@@ -11,17 +11,15 @@ const api = 'http://localhost:3000/api/publication/';
 export class MainComponent implements OnInit {
 
   data: any = [];
-  pub: any = [];
   title: string = '';
 
-  constructor(private http: HttpClient, private _renderer: Renderer2) { }
+  constructor(private http: HttpClient) { }
 
   ngOnInit(): void {
     this.http.get(api)
       .subscribe(
         (result: any) => {
           this.data = result.list;
-          this.pub = this.data
           console.log(this.data);
         },
         (error) => {

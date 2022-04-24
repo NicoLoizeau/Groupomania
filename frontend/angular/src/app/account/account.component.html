@@ -1,0 +1,30 @@
+<div>
+    <div>
+        <div>
+            <img src="#" alt="photo de profil">
+            <p>Changer de photo</p>
+        </div>
+        <p>User</p>
+        <p>Mail</p>
+        <p>Changer de mot de passe</p>
+    </div>
+    <div>
+        <h1>Mes publications</h1>
+        <div *ngFor="let post of data" class="blog-card" [routerLink]="['post']">
+            <div class="meta">
+                <!--<div class="photo"
+                    style="background-image: url(https://storage.googleapis.com/chydlx/codepen/blog-cards/image-1.jpg)">
+                </div>
+                revoir l'image-->
+                <ul class="details">
+                    <li class="author"><a>{{post.user}}</a></li>
+                    <li class="date">{{post.date}}</li>
+                </ul>
+            </div>
+            <div class="description">
+                <h2>{{post.titre}}</h2>
+                <p>{{post.description}}</p>
+            </div>
+        </div>
+    </div>
+</div>

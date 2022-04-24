@@ -1,20 +1,24 @@
-<div class="blog-card">
+<div *ngFor="let post of data" class="blog-card">
+    <p>{{post.nom}}</p>
     <div class="meta">
         <div class="photo"
             style="background-image: url(https://storage.googleapis.com/chydlx/codepen/blog-cards/image-1.jpg)"></div>
     </div>
     <div class="description">
-        <h1>Learning to Code</h1>
-        <h2>Opening a door to the future</h2>
-        <p> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad eum dolorum architecto obcaecati enim dicta
-            praesentium, quam nobis! Neque ad aliquam facilis numquam. Veritatis, sit.</p>
+        <h1>{{post.titre}}</h1>
+        <p>{{post.description}}</p>
     </div>
 </div>
 <div class="comment__container">
     <form action="comment">
         <input type="text" placeholder="Ajouter un commentaire">
+        <button>Envoyer</button>
     </form>
-    <div class="speech-bubble">
-        <p>ceci est un commentaire</p>
+    <div *ngFor="let comment of dataComment" class="speech-bubble">
+        <p>{{comment.user}}</p>
+        <p>{{comment.date}}</p>
+        <div>
+            <p>{{comment.commentaires}}</p>
+        </div>
     </div>
 </div>

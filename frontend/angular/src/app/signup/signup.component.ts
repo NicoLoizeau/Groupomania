@@ -25,23 +25,21 @@ export class SignupComponent implements OnInit {
     console.log(this.email);
     console.log(this.password);
     console.log(this.photo);
-    const body: any = {
-      nom: this.nom,
-      email: this.email,
-      password: this.password,
-      file: this.photo
-    }
+    var body = new FormData();
+    body.append('nom', this.nom);
+    body.append('email', this.email);
+    body.append('password', this.password);
+    body.append('photo', this.photo);
     console.log(body);
 
     this.http.post(api, body)
       .subscribe(
         (result) => {
-          this.router.navigate(['/']);
+          //this.router.navigate(['/']);
+          console.log(body);
         },
         (error) => {
           console.log(error)
-          this.show = true;
-
         },
         () => {
 

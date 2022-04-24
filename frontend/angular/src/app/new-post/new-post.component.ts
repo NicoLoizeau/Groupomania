@@ -22,8 +22,9 @@ export class NewPostComponent implements OnInit {
   ngOnInit(): void {
   }
   newPostSubmit(): void {
+    const Headers = `Authorization, Bearer ${sessionStorage['token']}`
     const token = sessionStorage['token'];
-    console.log(token)
+    console.log(Headers)
     //"Authorization": "Token " + localStorage.getItem("token")
     // 'Authorization', 'Bearer ' + localStorage.getItem("token")
 
@@ -37,7 +38,6 @@ export class NewPostComponent implements OnInit {
         },
         (error) => {
           console.log(error)
-
         },
         () => {
 
