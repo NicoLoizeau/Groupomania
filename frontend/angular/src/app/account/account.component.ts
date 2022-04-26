@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
-const api = 'http://localhost:3000/api/publication/:userId';
+const api = 'http://localhost:3000/api/publication/:user/list';
 const apiComment = 'http://localhost:3000/api/commentaire/';
 
 @Component({
@@ -17,7 +17,7 @@ export class AccountComponent implements OnInit {
   constructor(private http: HttpClient) { }
 
   ngOnInit(): void {
-    this.http.get(api)
+    this.http.get(api.replace(':user', '4'))
       .subscribe(
         (result: any) => {
           this.data = result.list;

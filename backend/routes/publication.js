@@ -5,9 +5,10 @@ const auth = require('../middleware/auth');
 const multer = require('../middleware/multer-config');
 
 router.post('/', auth, multer, publication.newPub);
-router.get('/', publication.allPub);
+router.get('/', auth, publication.allPub);
 router.get('/:id', publication.onePub);
-router.get('/:userId', publication.myPub);
 router.delete('/:id', auth, publication.delPub);
+router.get('/:user/list', publication.myPub);
+
 
 module.exports = router

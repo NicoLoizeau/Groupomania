@@ -29,7 +29,6 @@ exports.signup = (req, res, next) => {
         const file = req.file
         photo = `${req.protocol}://${req.get('host')}/images/${file.filename}`;
     }
-    //console.log(photo)
     con.query(`SELECT * FROM user WHERE email='${email}'`,
         (err, results) => {
             if (results.length > 0) {

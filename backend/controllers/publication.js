@@ -32,6 +32,7 @@ exports.newPub = (req, res, next) => {
 exports.allPub = (req, res, next) => {
     const select = `
         SELECT 
+            publication.id, 
             publication.titre, 
             publication.description, 
             publication.image, 
@@ -54,9 +55,11 @@ exports.allPub = (req, res, next) => {
 }
 
 exports.onePub = (req, res, next) => {
-    const idPub = (req.headers.id);
+    const idPub = (req.params.id);
+    console.log(req.headers)
     const select = `
     SELECT 
+        publication.id,
         publication.titre, 
         publication.description, 
         publication.image, 
@@ -64,10 +67,10 @@ exports.onePub = (req, res, next) => {
         user.nom 
     FROM publication 
         left join user on publication.user = user.id 
-    WHERE publication.id = 5 
+    WHERE publication.id = ? 
     ORDER BY date desc
-    `; //${idPub} @ publication.id
-    con.query(select, (error, result) => {
+    `;
+    con.query(select, [idPub], (error, result) => {
         if (error) throw error
         let list = []
         if (result) {
@@ -84,18 +87,20 @@ exports.delPub = (req, res, next) => {
     const select = `
     DELETE 
     FROM publication 
-    WHERE id = ${idPub} 
+    WHERE id = ? 
     `;
-    con.query(select, (error, result) => {
+    con.query(select, [idPub], (error, result) => {
         if (error) throw error
     })
     res.status(201).json({ message: 'publication supprimée !' })
 }
 
 exports.myPub = (req, res, next) => {
-    const user = (req.headers.id);
+    console.log('mypub')
+    const user = (req.params.user);
     const select = `
     SELECT 
+        publication.id,
         publication.titre, 
         publication.description, 
         publication.image, 
@@ -103,14 +108,15 @@ exports.myPub = (req, res, next) => {
         user.nom 
     FROM publication 
         left join user on publication.user = user.id 
-    WHERE user.id = 5 
+    WHERE user.id = ? 
     ORDER BY date DESC
     `; //${user}
-    con.query(select, (error, result) => {
+    con.query(select, [user], (error, result) => {
         if (error) throw error
         let list = []
         if (result) {
             result.forEach((item) => {
+                console.log(item)
                 list.push(new Publication(item['id'], item['titre'], item['description'], item['image'], item['date'], item['nom']))
             })
         }

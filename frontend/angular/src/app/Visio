@@ -1,5 +1,9 @@
-revoir la gestion des images avec Multer
+revoir la gestion des images avec Multer => ok
+retour API, comment manipuler le DOM avec Angular sur TS ? => ok
 
-retour API, comment panipuler le DOM avec Angular sur TS ?
 
-auth.js token dans post ts lien avec sessionStorage
+
+
+auth.js token dans post ts lien avec sessionStorage => revoir coment envoyer les "headers"
+
+revoir le retour de myPub, incohérent
