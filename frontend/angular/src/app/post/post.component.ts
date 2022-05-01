@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 const api = 'http://localhost:3000/api/publication/:id';
 const apiComment = 'http://localhost:3000/api/commentaire/';
@@ -17,7 +17,13 @@ export class PostComponent implements OnInit {
   constructor(private http: HttpClient) { }
 
   ngOnInit(): void {
-    this.http.get(api)
+    this.http.get(api, {
+      headers: new HttpHeaders(
+        {
+          'Authorization': `Bearer ${sessionStorage['token']}`,
+          'Content-Type': 'application/json'
+        })
+    })
       .subscribe(
         (result: any) => {
           this.data = result.list;
@@ -31,7 +37,13 @@ export class PostComponent implements OnInit {
 
         }
       )
-    this.http.get(apiComment)
+    this.http.get(apiComment, {
+      headers: new HttpHeaders(
+        {
+          'Authorization': `Bearer ${sessionStorage['token']}`,
+          'Content-Type': 'application/json'
+        })
+    })
       .subscribe(
         (result: any) => {
           this.dataComment = result.list;

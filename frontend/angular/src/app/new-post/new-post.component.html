@@ -2,7 +2,9 @@
     <div class="login-page">
         <div class="form">
             <form class="login-form">
-                <input [(ngModel)]="comment" name="text" type="text" placeholder="poster un text" />
+                <input [(ngModel)]="titre" name="text" type="text" placeholder="Titre du post" />
+                <input [(ngModel)]="description" name="text" type="text" placeholder="poster un text" />
+                <input [(ngModel)]="image" name="text" type="text" placeholder="poster une image" />
                 <button (click)="newPostSubmit()" id="login">Poster !</button>
             </form>
         </div>

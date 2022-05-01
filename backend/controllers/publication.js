@@ -56,7 +56,6 @@ exports.allPub = (req, res, next) => {
 
 exports.onePub = (req, res, next) => {
     const idPub = (req.params.id);
-    console.log(req.headers)
     const select = `
     SELECT 
         publication.id,
@@ -68,7 +67,6 @@ exports.onePub = (req, res, next) => {
     FROM publication 
         left join user on publication.user = user.id 
     WHERE publication.id = ? 
-    ORDER BY date desc
     `;
     con.query(select, [idPub], (error, result) => {
         if (error) throw error

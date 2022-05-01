@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Token } from '@angular/compiler';
 
 const api = 'http://localhost:3000/api/publication/';
 
@@ -14,18 +15,18 @@ export class MainComponent implements OnInit {
   title: string = '';
 
 
-  constructor(private http: HttpClient, private Headers: HttpHeaders) {
+  constructor(private http: HttpClient) {
 
   }
 
   ngOnInit(): void {
-    let headers: any = new Headers()
-    headers.append('Authorization', `token ${sessionStorage['token']}`)
-      ;
-
-    console.log(this.Headers)
-
-    this.http.get(api)
+    this.http.get(api, {
+      headers: new HttpHeaders(
+        {
+          'Authorization': `Bearer ${sessionStorage['token']}`,
+          'Content-Type': 'application/json'
+        })
+    })
       .subscribe(
         (result: any) => {
           this.data = result.list;
