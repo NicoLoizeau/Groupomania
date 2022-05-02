@@ -168,7 +168,6 @@ body {
     content: "";
     position: absolute;
     height: 5px;
-    background: #5ad67d;
     width: 35px;
     top: -0.75rem;
     border-radius: 3px;
@@ -221,7 +220,6 @@ body {
 }
 
 .comment__container {
-    background: lightcoral;
     margin: 0;
     padding: 5px;
     align-content: center;
@@ -234,6 +232,7 @@ body {
     margin: 1em 20px;
     text-align: center;
     color: black;
-    background: white;
+    background: #ecbdc5;
     border-radius: 30px;
+    align-content: center;
 }

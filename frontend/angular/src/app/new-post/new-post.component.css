@@ -1,0 +1,81 @@
+body {
+    font-family: "Roboto", sans-serif;
+    background-image: url(../../assets/images/icon-above-font.png);
+    background-repeat: no-repeat;
+    width: 100%;
+    height: 800px;
+    background-position: center;
+}
+
+.post-box {
+    width: 360px;
+    height: 620px;
+    margin: auto;
+    border-radius: 3px;
+}
+
+.login-box {
+    width: 360px;
+    height: 280px;
+    margin: auto;
+    border-radius: 3px;
+}
+
+h1 {
+    text-align: center;
+    padding-top: 15px;
+}
+
+h4 {
+    text-align: center;
+}
+
+form {
+    width: 300px;
+    margin-left: 20px;
+}
+
+form label {
+    display: flex;
+    margin-top: 20px;
+    font-size: 18px;
+}
+
+form input {
+    width: 100%;
+    padding: 7px;
+    border: none;
+    border: 1px solid gray;
+    border-radius: 6px;
+    outline: none;
+}
+
+input {
+    margin-top: 20px;
+}
+
+input[type="button"] {
+    width: 320px;
+    height: 35px;
+    border: none;
+    background-color: #4CAF50;
+    cursor: pointer;
+    color: white;
+    font-size: 18px;
+    text-align: center;
+}
+
+input[type="button"]:hover,
+input[type="button"]:active,
+input[type="button"]:focus {
+    background: #a05143;
+    -webkit-transition: all 0.3 ease;
+    transition: all 0.3 ease;
+}
+
+.button {
+    text-align: center;
+    width: 320px;
+    height: 35px;
+    margin-top: 20px;
+}

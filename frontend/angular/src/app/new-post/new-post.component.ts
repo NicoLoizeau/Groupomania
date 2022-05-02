@@ -19,19 +19,19 @@ export class NewPostComponent implements OnInit {
   description: string = '';
   image: any;
   date: Date = new Date();
-  user: number = sessionStorage['id'];
+  user: string = sessionStorage['id'];
 
   constructor(private http: HttpClient, private router: Router) { }
 
   ngOnInit(): void {
   }
   newPostSubmit(): void {
-    const body = {
-      titre: this.titre,
-      description: this.description,
-      image: this.image,
-      date: this.date.toISOString().split('T')[0], // à revoir
-      user: this.user
+    const body = new FormData(); {
+      body.append('titre', this.titre);
+      body.append('description', this.description);
+      body.append('image', this.image);
+      body.append('date', '2022-05-01'); // à revoir this.date.toISOString().split('T')[0])
+      body.append('user', this.user);
     }
     this.http.post(api, body, {
       headers: new HttpHeaders(

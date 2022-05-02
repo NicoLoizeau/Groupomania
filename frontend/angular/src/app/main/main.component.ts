@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Token } from '@angular/compiler';
+import { ActivatedRoute } from '@angular/router';
 
 const api = 'http://localhost:3000/api/publication/';
 
@@ -15,9 +16,10 @@ export class MainComponent implements OnInit {
   title: string = '';
 
 
-  constructor(private http: HttpClient) {
-
-  }
+  constructor(
+    private http: HttpClient,
+    private activatedRoute: ActivatedRoute
+  ) { }
 
   ngOnInit(): void {
     this.http.get(api, {

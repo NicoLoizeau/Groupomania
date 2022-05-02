@@ -22,10 +22,7 @@ export class SignupComponent implements OnInit {
   ngOnInit(): void {
   }
   signupSubmit(): void {
-    console.log(this.email);
-    console.log(this.password);
-    console.log(this.photo);
-    var body = new FormData();
+    let body = new FormData();
     body.append('nom', this.nom);
     body.append('email', this.email);
     body.append('password', this.password);
@@ -35,7 +32,7 @@ export class SignupComponent implements OnInit {
     this.http.post(api, body)
       .subscribe(
         (result) => {
-          //this.router.navigate(['/']);
+          this.router.navigate(['/']);
           console.log(body);
         },
         (error) => {

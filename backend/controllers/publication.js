@@ -4,6 +4,8 @@ const Publication = require('../models/publication');
 const fs = require('fs');
 
 exports.newPub = (req, res, next) => {
+    console.log('test image 4')
+
     const insert = `
     INSERT INTO publication 
     VALUES (
@@ -17,6 +19,7 @@ exports.newPub = (req, res, next) => {
     `;
     con.query(insert, (err, result) => {
         if (err) {
+            console.log('test image', req.body.image)
             console.log(err);
             return res.status(400).json("erreur!");
         } else {
