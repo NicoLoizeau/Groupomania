@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { DatePipe } from '@angular/common';
 
 const api = 'http://localhost:3000/api/publication/';
 
@@ -21,23 +22,27 @@ export class NewPostComponent implements OnInit {
   date: Date = new Date();
   user: string = sessionStorage['id'];
 
-  constructor(private http: HttpClient, private router: Router) { }
+  constructor(
+    private http: HttpClient,
+    private router: Router,
+    private datepipe: DatePipe
+  ) { }
 
   ngOnInit(): void {
   }
   newPostSubmit(): void {
-    const body = new FormData(); {
-      body.append('titre', this.titre);
-      body.append('description', this.description);
-      body.append('image', this.image);
-      body.append('date', '2022-05-01'); // à revoir this.date.toISOString().split('T')[0])
-      body.append('user', this.user);
-    }
+    const body = new FormData();
+    body.append('titre', this.titre);
+    body.append('description', this.description);
+    body.append('image', this.image);
+    body.append('date', this.datepipe.transform(this.date, 'yyyy-MM-dd') + '');
+    body.append('user', this.user);
+    console.log(this.image)
+
     this.http.post(api, body, {
       headers: new HttpHeaders(
         {
           'Authorization': `Bearer ${sessionStorage['token']}`,
-          'Content-Type': 'application/json'
         })
     })
       .subscribe(
@@ -51,5 +56,8 @@ export class NewPostComponent implements OnInit {
 
         }
       )
+  }
+  changePhoto(event: any) {
+    this.image = event.target.files[0];
   }
 }

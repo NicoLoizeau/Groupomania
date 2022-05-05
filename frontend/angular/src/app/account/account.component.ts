@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 const api = 'http://localhost:3000/api/publication/:user/list';
 const apiComment = 'http://localhost:3000/api/commentaire/';
+const apiDelete = 'http://localhost:3000/api/publication/:id';
 
 @Component({
   selector: 'app-account',
@@ -17,7 +18,7 @@ export class AccountComponent implements OnInit {
   constructor(private http: HttpClient) { }
 
   ngOnInit(): void {
-    this.http.get(api.replace(':user', '4'))
+    this.http.get(api.replace(':user', sessionStorage['id']))
       .subscribe(
         (result: any) => {
           this.data = result.list;
@@ -45,6 +46,21 @@ export class AccountComponent implements OnInit {
 
         }
       )
+  }
+  clickDelete(id: any): void {
+    console.log(id)
+    let body = {
+      'id': id
+    }
+    this.http.delete(apiDelete, {
+      headers: new HttpHeaders(
+        {
+          'Authorization': `Bearer ${sessionStorage['token']}`,
+          'Content-Type': 'application/json'
+        }),
+      body
+    })
+    console.log(body)
   }
 
 }

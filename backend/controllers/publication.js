@@ -3,16 +3,22 @@ const con = require('../cluster');
 const Publication = require('../models/publication');
 const fs = require('fs');
 
-exports.newPub = (req, res, next) => {
-    console.log('test image 4')
 
+exports.newPub = (req, res, next) => {
+    console.log(req.files)
+
+    let photo = null;
+    if (req.files ? req.files.length > 0 : false) {
+        const file = req.files[0]
+        photo = `${req.protocol}://${req.get('host')}/images/${file.filename}`;
+    }
     const insert = `
     INSERT INTO publication 
     VALUES (
         NULL, 
         '${req.body.titre}',
         '${req.body.description}',
-        '${req.body.image}',
+        '${photo}',
         '${req.body.date}',
         '${req.body.user}'
         )

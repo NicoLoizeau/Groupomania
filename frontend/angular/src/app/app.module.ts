@@ -12,6 +12,7 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { AccountComponent } from './account/account.component';
 import { NewPostComponent } from './new-post/new-post.component';
+import { DatePipe } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,7 @@ import { NewPostComponent } from './new-post/new-post.component';
     HttpClientModule,
     FormsModule
   ],
-  providers: [HttpClient],
+  providers: [HttpClient, DatePipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -11,7 +11,7 @@ const routes: Routes = [
   { path: '', component: LoginComponent },
   { path: 'signup', component: SignupComponent },
   { path: 'main', component: MainComponent },
-  { path: 'main/post', component: PostComponent },
+  { path: 'main/post/:id', component: PostComponent },
   { path: 'main/newPost', component: NewPostComponent },
   { path: 'account', component: AccountComponent }
 ];

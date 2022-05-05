@@ -1,7 +1,6 @@
-<div *ngFor="let post of data" class="blog-card" [routerLink]="['post/:id']">
+<div *ngFor="let post of data" class="blog-card" (click)="clickNavigate(post.id)">
     <div class="meta">
-        <div class="photo" style="background-image: url(#)"></div>
-        <!--revoir l'image-->
+        <div class="photo" style="background-image: url({{post.image}})"></div>
         <ul class="details">
             <li class="author"><a>{{post.user}}</a></li>
             <li class="date">{{post.date}}</li>

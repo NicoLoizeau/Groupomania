@@ -12,16 +12,11 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use('/images', express.static(path.join(__dirname, 'images')));
 
 
-////// CORS accept cross-orrigin//////
 app.use((req, res, next) => {
-    console.log('test image')
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content, Accept, Content-Type, Authorization');
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS');
-    console.log('test image 2')
-
     next();
-    console.log('test image 3')
 
 });
 

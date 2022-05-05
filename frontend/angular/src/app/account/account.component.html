@@ -10,15 +10,16 @@
     </div>
     <div>
         <h1>Mes publications</h1>
-        <div *ngFor="let post of data" class="blog-card" [routerLink]="['post']">
+        <div *ngFor="let post of data" class="blog-card">
             <div class="meta">
-                <!--<div class="photo"
-                    style="background-image: url(https://storage.googleapis.com/chydlx/codepen/blog-cards/image-1.jpg)">
+                <div class="photo" style="background-image: url({{data.image}})">
                 </div>
-                revoir l'image-->
                 <ul class="details">
                     <li class="author"><a>{{post.user}}</a></li>
                     <li class="date">{{post.date}}</li>
+                    <li class="delete" (click)="clickDelete(post.id)">
+                        <a>Supprimer</a>
+                    </li>
                 </ul>
             </div>
             <div class="description">

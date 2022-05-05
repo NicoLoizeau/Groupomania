@@ -5,7 +5,7 @@
             <form class="login-form">
                 <input [(ngModel)]="titre" name="text" type="text" placeholder="Titre du post" />
                 <input [(ngModel)]="description" name="description" type="text" placeholder="poster un text" />
-                <input [(ngModel)]="image" name="image" type="file" placeholder="poster une image" />
+                <input (change)="changePhoto($event)" type="file">
                 <button (click)="newPostSubmit()" class="button">Poster !</button>
             </form>
         </div>

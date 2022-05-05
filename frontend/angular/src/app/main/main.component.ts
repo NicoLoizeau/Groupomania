@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Token } from '@angular/compiler';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 const api = 'http://localhost:3000/api/publication/';
 
@@ -18,7 +18,8 @@ export class MainComponent implements OnInit {
 
   constructor(
     private http: HttpClient,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -32,7 +33,6 @@ export class MainComponent implements OnInit {
       .subscribe(
         (result: any) => {
           this.data = result.list;
-          console.log(this.data);
         },
         (error) => {
           console.log(error)
@@ -43,5 +43,9 @@ export class MainComponent implements OnInit {
         }
       )
   }
-
+  clickNavigate(id: any): void {
+    this.router.navigate([
+      'main/post', id
+    ])
+  }
 }
