@@ -90,13 +90,13 @@ exports.onePub = (req, res, next) => {
 }
 
 exports.delPub = (req, res, next) => {
-    const idPub = (req.body.id);
-    const select = `
+    const idPub = (req.body.idPub);
+    const del = `
     DELETE 
     FROM publication 
     WHERE id = ? 
     `;
-    con.query(select, [idPub], (error, result) => {
+    con.query(del, [idPub], (error, result) => {
         if (error) throw error
     })
     res.status(201).json({ message: 'publication supprimée !' })
@@ -117,7 +117,7 @@ exports.myPub = (req, res, next) => {
         left join user on publication.user = user.id 
     WHERE user.id = ? 
     ORDER BY date DESC
-    `; //${user}
+    `;
     con.query(select, [user], (error, result) => {
         if (error) throw error
         let list = []
