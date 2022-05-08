@@ -1,15 +1,23 @@
 <div>
     <div>
         <div>
-            <img src="#" alt="photo de profil">
-            <p>Changer de photo</p>
+            <img src="{{dataUser[0].photo}}" alt="photo de profil">
         </div>
-        <p>user</p>
-        <p>Mail</p>
-        <p>Changer de mot de passe</p>
+        <label for="photo">Changer votre photo </label>
+        <input (change)="changePhoto($event)" type="file">
+        <p>{{dataUser[0].nom}}</p>
+        <p>{{dataUser[0].email}}</p>
+        <p>Changer de mot de passe </p>
+        <input [(ngModel)]="password" name="password" type="password" placeholder="Nouveau mot de passe " />
+        <a (click)="deleteAccount()">
+            <button> Supprimer le compte </button>
+        </a>
     </div>
     <div>
         <h1>Mes publications</h1>
+        <div>
+            <button (click)="clickNewPost()">Envoyer une nouvelle publication</button>
+        </div>
         <div *ngFor="let post of data" class="blog-card">
             <div class="meta">
                 <div class="photo" style="background-image: url({{data.image}})">

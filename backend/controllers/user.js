@@ -6,7 +6,11 @@ const jwt = require('jsonwebtoken');
 const fs = require('fs');
 
 exports.list = (req, res, next) => {
-    const select = 'SELECT * FROM user'
+    const token = req.headers.authorization.split(' ')[1];
+    const decodedToken = jwt.verify(token, 'RANDOM_SECRET_TOKEN');
+    const userId = decodedToken.userID;
+
+    const select = `SELECT * FROM user WHERE id=${userId} `
     con.query(select, (error, result) => {
         if (error) throw error
         let list = []
@@ -20,13 +24,13 @@ exports.list = (req, res, next) => {
 }
 exports.signup = (req, res, next) => {
     const email = req.body.email;
-    console.log(req.file)
+    console.log(req.files, '1')
     let photo = null;
-    console.log(req.file.filename)
+    console.log(req.files[0].filename, '2')
 
-    if (req.file != undefined) {
-        console.log(req.file.length)
-        const file = req.file
+    if (req.files != undefined) {
+        console.log(req.files.length, '3')
+        const file = req.files[0]
         photo = `${req.protocol}://${req.get('host')}/images/${file.filename}`;
     }
     con.query(`SELECT * FROM user WHERE email='${email}'`,
@@ -82,6 +86,7 @@ exports.login = (req, res, next) => {
 };
 exports.deleteUser = (req, res, next) => {
     const email = req.body.email
+    console.log(req.body.email)
     con.query(`SELECT * FROM user WHERE email='${email}'`,
         (err, results) => {
             if (results.length < 0) {

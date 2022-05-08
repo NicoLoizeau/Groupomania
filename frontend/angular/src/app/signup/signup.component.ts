@@ -16,6 +16,9 @@ export class SignupComponent implements OnInit {
   password: string = '';
   photo: any;
   show: boolean = false;
+  showMailError: boolean = false;
+  showPasswordError: boolean = false;
+
 
   constructor(private http: HttpClient, private router: Router) { }
 
@@ -46,4 +49,23 @@ export class SignupComponent implements OnInit {
   changePhoto(event: any) {
     this.photo = event.target.files[0];
   }
+  regExMail(event: any) {
+    let regexMail: RegExp = /^\w+([\._-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+    if (regexMail.test(this.email)) {
+      this.showMailError = false
+    }
+    else {
+      this.showMailError = true
+    }
+  }
+  regExPassword(event: any) {
+    let regexPassword: RegExp = /^[a-zA-Z0-9]{8,50}$/;    //entre 8 et 50 alpha
+    if (regexPassword.test(this.password)) {
+      this.showPasswordError = false
+    }
+    else {
+      this.showPasswordError = true
+    }
+  }
+
 }
