@@ -3,15 +3,29 @@
         <div>
             <img src="{{dataUser[0].photo}}" alt="photo de profil">
         </div>
-        <label for="photo">Changer votre photo </label>
+        <button (click)="clickNewPhoto()"> Changer votre photo </button>
         <input (change)="changePhoto($event)" type="file">
+        <div *ngIf="photoErrorMessage">
+            <p>Vous n'avez pas séléctionné de nouvelle photo !</p>
+        </div>
+        <div *ngIf="photoValidateMessage">
+            <p>Photo mise à jour.</p>
+        </div>
         <p>{{dataUser[0].nom}}</p>
         <p>{{dataUser[0].email}}</p>
-        <p>Changer de mot de passe </p>
         <input [(ngModel)]="password" name="password" type="password" placeholder="Nouveau mot de passe " />
-        <a (click)="deleteAccount()">
+        <button (click)="changePassword(password)">Changer de mot de passe</button>
+        <div *ngIf="ErrorPassword">
+            <p>Le mot de passe ne respect pas les conditions. <br>
+                Il doit contenir 8 caractères sans caractères spéciaux
+            </p>
+        </div>
+        <div *ngIf="passwordValidateMessage">
+            <p>Votre mot de passe à été modifié !</p>
+        </div>
+        <div (click)="deleteAccount()">
             <button> Supprimer le compte </button>
-        </a>
+        </div>
     </div>
     <div>
         <h1>Mes publications</h1>
@@ -20,12 +34,12 @@
         </div>
         <div *ngFor="let post of data" class="blog-card">
             <div class="meta">
-                <div class="photo" style="background-image: url({{data.image}})">
+                <div class="photo" style="background-image: url({{post.image}})">
                 </div>
                 <ul class="details">
                     <li class="author"><a>{{post.user}}</a></li>
                     <li class="date">{{post.date}}</li>
-                    <li class="delete" (click)="clickDelete(post.id)">
+                    <li class="delete" (click)="clickDelete(post.id, post.image)">
                         <a>Supprimer</a>
                     </li>
                 </ul>

@@ -8,6 +8,7 @@ const api = 'http://localhost:3000/api/publication/:user/list';
 const apiComment = 'http://localhost:3000/api/commentaire/';
 const apiDelete = 'http://localhost:3000/api/publication/';
 const apiDeleteAccount = 'http://localhost:3000/api/user/delete/:user';
+const apiUpdateAccount = 'http://localhost:3000/api/user/update/:user';
 
 @Component({
   selector: 'app-account',
@@ -21,10 +22,19 @@ export class AccountComponent implements OnInit {
   dataUser: any = [];
   photo: any;
   password: any;
+  photoErrorMessage: Boolean = false;
+  photoValidateMessage: Boolean = false;
+  email: any = sessionStorage['email'];
+  photoErrorPassword: Boolean = false;
+  regexPassword: RegExp = /^[a-zA-Z0-9]{8,50}$/;    //entre 8 et 50 alpha
+  ErrorPassword: boolean = false;
+  passwordValidateMessage: boolean = false;
 
   constructor(private http: HttpClient, private router: Router) { }
 
   ngOnInit(): void {
+    console.log(this.email)
+
     this.http.get(apiUser, {
       headers: new HttpHeaders(
         {
@@ -78,7 +88,9 @@ export class AccountComponent implements OnInit {
         }
       )*/
   }
-  clickDelete(id: any): void {
+  clickDelete(id: any, image: any): void {
+    console.log(id)
+    console.log(image) //supprimer image
     let body = {
       'idPub': id,
     }
@@ -109,8 +121,6 @@ export class AccountComponent implements OnInit {
   }
 
   deleteAccount(): void {
-    console.log(this.dataUser[0].email)
-
     let body = {
       'email': this.dataUser[0].email
 
@@ -126,6 +136,7 @@ export class AccountComponent implements OnInit {
       .subscribe(
         (result) => {
           this.router.navigate(['/']);
+
         },
         (error) => {
           console.log(error)
@@ -140,4 +151,66 @@ export class AccountComponent implements OnInit {
   clickNewPost() {
     this.router.navigate(['main/newPost'])
   }
+  clickNewPhoto(): void {
+    if (this.photo === undefined) {
+      this.photoErrorMessage = true;
+    } else {
+      const body = new FormData();
+      body.append('photo', this.photo);
+      body.append('email', this.email);
+      body.append('id', sessionStorage['id'])
+      this.http.put(apiUpdateAccount.replace(':user', sessionStorage['id']), body, {
+        headers: new HttpHeaders(
+          {
+            'Authorization': `Bearer ${sessionStorage['token']}`,
+          })
+      })
+        .subscribe(
+          (result) => {
+            this.photoValidateMessage = true;
+          },
+          (error) => {
+            console.log(error)
+          },
+          () => {
+
+          }
+        )
+
+    }
+  }
+  changePassword(password: any): void {
+    console.log(password)
+    if (this.password === undefined) {
+      this.ErrorPassword = true;
+    } if (this.regexPassword.test(password)) {
+      console.log(password)
+
+      const body = new FormData();
+      body.append('password', password);
+      body.append('email', this.email);
+      body.append('id', sessionStorage['id'])
+
+      this.http.put(apiUpdateAccount.replace(':user', sessionStorage['id']), body, {
+        headers: new HttpHeaders(
+          {
+            'Authorization': `Bearer ${sessionStorage['token']}`,
+          })
+
+      })
+        .subscribe(
+          (result) => {
+            this.passwordValidateMessage = true;
+          },
+          (error) => {
+            console.log(error)
+          },
+          () => {
+
+          }
+        )
+
+    }
+  }
+
 }

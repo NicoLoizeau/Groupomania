@@ -5,8 +5,6 @@ const fs = require('fs');
 
 
 exports.newPub = (req, res, next) => {
-    console.log(req.files)
-
     let photo = null;
     if (req.files ? req.files.length > 0 : false) {
         const file = req.files[0]
@@ -25,7 +23,6 @@ exports.newPub = (req, res, next) => {
     `;
     con.query(insert, (err, result) => {
         if (err) {
-            console.log('test image', req.body.image)
             console.log(err);
             return res.status(400).json("erreur!");
         } else {
@@ -103,7 +100,6 @@ exports.delPub = (req, res, next) => {
 }
 
 exports.myPub = (req, res, next) => {
-    console.log('mypub')
     const user = (req.params.user);
     const select = `
     SELECT 
@@ -123,7 +119,6 @@ exports.myPub = (req, res, next) => {
         let list = []
         if (result) {
             result.forEach((item) => {
-                console.log(item)
                 list.push(new Publication(item['id'], item['titre'], item['description'], item['image'], item['date'], item['nom']))
             })
         }

@@ -37,7 +37,6 @@ export class NewPostComponent implements OnInit {
     body.append('image', this.image);
     body.append('date', this.datepipe.transform(this.date, 'yyyy-MM-dd') + '');
     body.append('user', this.user);
-    console.log(this.image)
 
     this.http.post(api, body, {
       headers: new HttpHeaders(

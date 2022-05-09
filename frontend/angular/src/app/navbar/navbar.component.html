@@ -10,7 +10,8 @@
             <button class="subnavbtn" [routerLink]="['account']">Mon compte<i class="fa fa-caret-down"></i></button>
         </div>
         <div class="subnav">
-            <button class="subnavbtn" [routerLink]="['']">Se déconnecter<i class="fa fa-caret-down"></i></button>
+            <button (click)="clearSessionStorage()" class="subnavbtn">Se déconnecter<i
+                    class="fa fa-caret-down"></i></button>
         </div>
     </div>
 </nav>

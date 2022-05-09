@@ -24,8 +24,6 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
   }
   loginSubmit(): void {
-    console.log(this.email);
-    console.log(this.password);
     const body = {
       email: this.email,
       password: this.password
@@ -36,9 +34,8 @@ export class LoginComponent implements OnInit {
           this.data = result;
           sessionStorage.setItem('token', this.data.token);
           sessionStorage.setItem('id', this.data.id);
-
+          sessionStorage.setItem('email', this.data.email);
           this.router.navigate(['main']);
-          console.log(sessionStorage.getItem('token'))
         },
         (error) => {
           this.show = true;

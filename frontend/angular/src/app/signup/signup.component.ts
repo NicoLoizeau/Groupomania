@@ -30,13 +30,11 @@ export class SignupComponent implements OnInit {
     body.append('email', this.email);
     body.append('password', this.password);
     body.append('photo', this.photo);
-    console.log(body);
 
     this.http.post(api, body)
       .subscribe(
         (result) => {
           this.router.navigate(['/']);
-          console.log(body);
         },
         (error) => {
           console.log(error)

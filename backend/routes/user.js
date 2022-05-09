@@ -9,7 +9,7 @@ const fs = require('fs');
 router.post('/signup', multer, user.signup);
 router.post('/login', user.login);
 router.delete('/delete/:id', auth, user.deleteUser);
-router.put('/update/:id', auth, multer, user.modifyUser);
+router.put('/update/:id', auth, multer, user.modify);
 router.get('/', auth, user.list);
 
 

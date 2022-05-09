@@ -27,7 +27,6 @@ export class PostComponent implements OnInit {
       .subscribe(
         (result: any) => {
           this.data = result.list;
-          console.log(this.data);
         },
         (error) => {
           console.log(error)
@@ -47,7 +46,6 @@ export class PostComponent implements OnInit {
       .subscribe(
         (result: any) => {
           this.dataComment = result.list;
-          console.log(this.dataComment);
         },
         (error) => {
           console.log(error)
