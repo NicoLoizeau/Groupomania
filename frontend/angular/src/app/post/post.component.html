@@ -1,15 +1,15 @@
-<div *ngFor="let post of data" class="blog-card">
-    <p>{{post.nom}}</p>
+<div class="blog-card">
+    <p>{{data[0].nom}}</p>
     <div class="meta">
         <div class="photo"
             style="background-image: url(https://storage.googleapis.com/chydlx/codepen/blog-cards/image-1.jpg)"></div>
     </div>
     <div class="description">
-        <h1>{{post.titre}}</h1>
-        <p>{{post.description}}</p>
+        <h1>{{data[0].titre}}</h1>
+        <p>{{data[0].description}}</p>
     </div>
 </div>
-<div class="comment__container">
+<div *ngFor="let comment of dataComment" class="comment__container">
     <form action="comment">
         <input type="text" placeholder="Ajouter un commentaire">
         <button>Envoyer</button>

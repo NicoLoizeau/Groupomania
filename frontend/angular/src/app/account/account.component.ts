@@ -123,7 +123,6 @@ export class AccountComponent implements OnInit {
   deleteAccount(): void {
     let body = {
       'email': this.dataUser[0].email
-
     }
     this.http.delete(apiDeleteAccount.replace(':user', sessionStorage['id']), {
       headers: new HttpHeaders(
@@ -180,17 +179,11 @@ export class AccountComponent implements OnInit {
     }
   }
   changePassword(password: any): void {
-    console.log(password)
-    if (this.password === undefined) {
-      this.ErrorPassword = true;
-    } if (this.regexPassword.test(password)) {
-      console.log(password)
-
+    if (this.password != undefined && this.regexPassword.test(password)) {
       const body = new FormData();
       body.append('password', password);
       body.append('email', this.email);
       body.append('id', sessionStorage['id'])
-
       this.http.put(apiUpdateAccount.replace(':user', sessionStorage['id']), body, {
         headers: new HttpHeaders(
           {
@@ -210,6 +203,8 @@ export class AccountComponent implements OnInit {
           }
         )
 
+    } else {
+      this.ErrorPassword = true;
     }
   }
 

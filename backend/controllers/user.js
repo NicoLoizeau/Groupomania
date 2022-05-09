@@ -90,13 +90,14 @@ exports.login = (req, res, next) => {
 };
 exports.deleteUser = (req, res, next) => {
     const email = req.body.email
+    console.log(email)
     con.query(`SELECT * FROM user WHERE email='${email}'`,
         (err, results) => {
-            if (results.length < 0) {
+            if (results.length == 0) {
                 res.status(404).json({ message: 'l\'utilisateur est inconnu !' })
             } else {
                 con.query(`DELETE FROM user WHERE email='${email}'`,
-                    (err,) => {
+                    (err, results) => {
                         res.status(201).json({ message: 'l\'utilisateur a été supprimé !' })
                     }
                 )
@@ -109,8 +110,6 @@ exports.modify = (req, res, next) => {
     const email = req.body.email;
 
     if (req.files.length > 0) {
-        const id = req.body.id;
-        const email = req.body.email;
         const select = `SELECT * FROM user WHERE id = '${id}'`;
         const newphoto = `${req.protocol}://${req.get('host')}/images/${req.files[0].filename}`;
         const photo = con.query(`SELECT photo FROM user WHERE email = '${email}'`,
@@ -124,7 +123,6 @@ exports.modify = (req, res, next) => {
                         message: 'Utilisateur non trouvé !'
                     });
                 } if (newphoto != photo) {
-                    console.log('modif photo')
                     con.query(`UPDATE user SET photo = '${newphoto}' WHERE id = '${id}'`,
                         (err) => {
                             if (err) {
@@ -138,11 +136,8 @@ exports.modify = (req, res, next) => {
                 }
             })
     } if (req.body.password != undefined && regexPassword.test(req.body.password)) {
-        console.log(req.body.password, '1')
         bcrypt.hash(req.body.password, 10)
             .then(cryptedPassword => {
-                console.log(cryptedPassword)
-                console.log(id)
                 con.query(`UPDATE user SET password = '${cryptedPassword}' WHERE id = '${id}'`,
                     (err) => {
                         if (err) {

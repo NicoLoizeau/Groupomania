@@ -17,11 +17,11 @@
         <button (click)="changePassword(password)">Changer de mot de passe</button>
         <div *ngIf="ErrorPassword">
             <p>Le mot de passe ne respect pas les conditions. <br>
-                Il doit contenir 8 caractères sans caractères spéciaux
+                Il doit contenir au moins 8 caractères sans caractères spéciaux
             </p>
         </div>
         <div *ngIf="passwordValidateMessage">
-            <p>Votre mot de passe à été modifié !</p>
+            <p>Votre mot de passe a été modifié !</p>
         </div>
         <div (click)="deleteAccount()">
             <button> Supprimer le compte </button>
