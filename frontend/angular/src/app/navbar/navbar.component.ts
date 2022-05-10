@@ -20,7 +20,7 @@ export class NavbarComponent implements OnInit {
     }*/
   }
   clearSessionStorage() {
-    this.router.navigate(['']);
+    this.router.navigate(['../login']);
     sessionStorage.clear();
     //this.auth = false
   }

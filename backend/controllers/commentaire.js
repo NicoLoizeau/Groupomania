@@ -3,7 +3,9 @@ const Commentaire = require('../models/commentaire');
 const fs = require('fs');
 
 exports.newCom = (req, res, next) => {
+    console.log(req.body)
     const postCom = `NULL, '${req.body.commentaires}', '${req.body.date}', '${req.body.user}', '${req.body.publication}'`;
+    console.log(postCom)
     const insert = `INSERT INTO commentaires VALUES (${postCom})`;
     con.query(insert, (err, result) => {
         if (err) {
@@ -19,7 +21,7 @@ exports.newCom = (req, res, next) => {
 }
 
 exports.allComPub = (req, res, next) => {
-    const pub = req.body.publication;
+    const pub = req.params.id;
     const select =
         `SELECT 
             commentaires.id, 
@@ -29,9 +31,9 @@ exports.allComPub = (req, res, next) => {
             commentaires.publication  
         FROM commentaires
             left join user on commentaires.user = user.id 
-        WHERE publication = 3
+        WHERE publication = ?
         ORDER BY date desc`;//${pub}
-    con.query(select, (error, result) => {
+    con.query(select, [pub], (error, result) => {
         if (error) throw error
         let list = []
         if (result) {

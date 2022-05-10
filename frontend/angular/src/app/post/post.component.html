@@ -1,18 +1,17 @@
 <div class="blog-card">
-    <p>{{data[0].nom}}</p>
+    <p>{{data?.nom}}</p>
     <div class="meta">
-        <div class="photo"
-            style="background-image: url(https://storage.googleapis.com/chydlx/codepen/blog-cards/image-1.jpg)"></div>
+        <div class="photo" style="background-image: url({{data?.image}})"></div>
     </div>
     <div class="description">
-        <h1>{{data[0].titre}}</h1>
-        <p>{{data[0].description}}</p>
+        <h1>{{data?.titre}}</h1>
+        <p>{{data?.description}}</p>
     </div>
 </div>
-<div *ngFor="let comment of dataComment" class="comment__container">
+<div class="comment__container">
     <form action="comment">
-        <input type="text" placeholder="Ajouter un commentaire">
-        <button>Envoyer</button>
+        <input [(ngModel)]="commentaire" name="commentaire" type="text" placeholder="Ajouter un commentaire">
+        <button (click)="clickAddComment(commentaire)">Envoyer</button>
     </form>
     <div *ngFor="let comment of dataComment" class="speech-bubble">
         <p>{{comment.user}}</p>

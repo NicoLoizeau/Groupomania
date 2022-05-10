@@ -90,12 +90,15 @@ exports.login = (req, res, next) => {
 };
 exports.deleteUser = (req, res, next) => {
     const email = req.body.email
-    console.log(email)
     con.query(`SELECT * FROM user WHERE email='${email}'`,
         (err, results) => {
+            const image = results[0].photo.split('/images/')[1];
             if (results.length == 0) {
                 res.status(404).json({ message: 'l\'utilisateur est inconnu !' })
             } else {
+                fs.unlink(`images/${image}`, (err) => {
+                    if (err) throw err;
+                })
                 con.query(`DELETE FROM user WHERE email='${email}'`,
                     (err, results) => {
                         res.status(201).json({ message: 'l\'utilisateur a été supprimé !' })

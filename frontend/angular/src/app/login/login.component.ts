@@ -35,7 +35,7 @@ export class LoginComponent implements OnInit {
           sessionStorage.setItem('token', this.data.token);
           sessionStorage.setItem('id', this.data.id);
           sessionStorage.setItem('email', this.data.email);
-          this.router.navigate(['main']);
+          this.router.navigate(['../main']);
         },
         (error) => {
           this.show = true;

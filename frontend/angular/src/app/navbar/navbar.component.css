@@ -19,6 +19,7 @@
     position: relative;
     transition: all 0.7s ease;
     padding-left: 7%;
+    z-index: 9;
 }
 
 #trapezoid a,
@@ -84,7 +85,7 @@
     position: absolute;
     left: 0;
     width: 100%;
-    z-index: 1;
+    z-index: 9;
     transform: perspective(-10px);
 }
 

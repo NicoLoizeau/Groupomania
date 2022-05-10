@@ -3,6 +3,8 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 const api = 'http://localhost:3000/api/user/signup';
+const apiLog = 'http://localhost:3000/api/user/login';
+
 
 @Component({
   selector: 'app-signup',
@@ -18,6 +20,7 @@ export class SignupComponent implements OnInit {
   show: boolean = false;
   showMailError: boolean = false;
   showPasswordError: boolean = false;
+  data: any = [];
 
 
   constructor(private http: HttpClient, private router: Router) { }
@@ -34,7 +37,7 @@ export class SignupComponent implements OnInit {
     this.http.post(api, body)
       .subscribe(
         (result) => {
-          this.router.navigate(['/']);
+          this.login()
         },
         (error) => {
           console.log(error)
@@ -65,5 +68,30 @@ export class SignupComponent implements OnInit {
       this.showPasswordError = true
     }
   }
+  login(): void {
+    const body = {
+      email: this.email,
+      password: this.password
+    }
+    this.http.post(apiLog, body)
+      .subscribe(
+        (result) => {
+          this.data = result;
+          sessionStorage.setItem('token', this.data.token);
+          sessionStorage.setItem('id', this.data.id);
+          sessionStorage.setItem('email', this.data.email);
+          this.router.navigate(['../main']);
+        },
+        (error) => {
+          this.show = true;
+          console.log(error)
+
+        },
+        () => {
+
+        }
+      )
+  }
 
 }
+
