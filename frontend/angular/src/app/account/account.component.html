@@ -1,7 +1,7 @@
 <div>
     <div>
         <div>
-            <img src="{{dataUser[0].photo}}" alt="photo de profil">
+            <img src="{{dataUser?.photo}}" alt="photo de profil">
         </div>
         <button (click)="clickNewPhoto()"> Changer votre photo </button>
         <input (change)="changePhoto($event)" type="file">
@@ -11,8 +11,8 @@
         <div *ngIf="photoValidateMessage">
             <p>Photo mise à jour.</p>
         </div>
-        <p>{{dataUser[0].nom}}</p>
-        <p>{{dataUser[0].email}}</p>
+        <p>{{dataUser?.nom}}</p>
+        <p>{{dataUser?.email}}</p>
         <input [(ngModel)]="password" name="password" type="password" placeholder="Nouveau mot de passe " />
         <button (click)="changePassword(password)">Changer de mot de passe</button>
         <div *ngIf="ErrorPassword">

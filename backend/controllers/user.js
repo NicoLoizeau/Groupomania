@@ -117,10 +117,14 @@ exports.modify = (req, res, next) => {
         const newphoto = `${req.protocol}://${req.get('host')}/images/${req.files[0].filename}`;
         const photo = con.query(`SELECT photo FROM user WHERE email = '${email}'`,
             (err, results) => {
-                return results.photo
+                return results[0].photo
             })
+
         con.query(select,
             (err, results) => {
+                const image = results[0].photo.split('/images/')[1];
+                console.log(image)
+
                 if (results.length == 0) {
                     res.status(401).json({
                         message: 'Utilisateur non trouvé !'
@@ -132,6 +136,9 @@ exports.modify = (req, res, next) => {
                                 console.log(err)
                                 return res.status(400).json("erreur !");
                             }
+                            fs.unlink(`images/${image}`, (err) => {
+                                if (err) throw err;
+                            })
                             return res.status(201).json({
                                 message: 'Votre photo a bien été modifié !'
                             });

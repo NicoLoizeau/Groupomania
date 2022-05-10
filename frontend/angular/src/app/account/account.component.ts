@@ -44,7 +44,7 @@ export class AccountComponent implements OnInit {
     })
       .subscribe(
         (result: any) => {
-          this.dataUser = result.list;
+          this.dataUser = result.list[0];
         },
         (error) => {
           console.log(error)
