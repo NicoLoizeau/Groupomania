@@ -49,7 +49,6 @@ export class PostComponent implements OnInit {
     })
       .subscribe(
         (result) => {
-          //this.router.navigate(['main/post', this.id])
           window.location.reload();
         },
         (error) => {

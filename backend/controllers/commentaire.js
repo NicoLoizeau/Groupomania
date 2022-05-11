@@ -3,9 +3,7 @@ const Commentaire = require('../models/commentaire');
 const fs = require('fs');
 
 exports.newCom = (req, res, next) => {
-    console.log(req.body)
     const postCom = `NULL, '${req.body.commentaires}', '${req.body.date}', '${req.body.user}', '${req.body.publication}'`;
-    console.log(postCom)
     const insert = `INSERT INTO commentaires VALUES (${postCom})`;
     con.query(insert, (err, result) => {
         if (err) {

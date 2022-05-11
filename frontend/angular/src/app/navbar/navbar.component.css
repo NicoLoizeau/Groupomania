@@ -19,7 +19,6 @@
     position: relative;
     transition: all 0.7s ease;
     padding-left: 7%;
-    z-index: 9;
 }
 
 #trapezoid a,
@@ -37,7 +36,7 @@
     position: sticky;
     top: 0;
     display: flex;
-    overflow: hidden;
+    overflow: visible;
     justify-content: center;
     height: 100px;
 }

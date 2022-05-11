@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { Message } from '@angular/compiler/src/i18n/i18n_ast';
 
 const apiUser = 'http://localhost:3000/api/user';
@@ -30,11 +30,13 @@ export class AccountComponent implements OnInit {
   ErrorPassword: boolean = false;
   passwordValidateMessage: boolean = false;
 
-  constructor(private http: HttpClient, private router: Router) { }
+
+  constructor(private http: HttpClient,
+    private router: Router,
+    private activatedRouter: ActivatedRoute
+  ) { }
 
   ngOnInit(): void {
-    console.log(this.email)
-
     this.http.get(apiUser, {
       headers: new HttpHeaders(
         {
@@ -55,7 +57,13 @@ export class AccountComponent implements OnInit {
         }
       )
 
-    this.http.get(api.replace(':user', sessionStorage['id']))
+    this.http.get(api.replace(':user', sessionStorage['id']), {
+      headers: new HttpHeaders(
+        {
+          'Authorization': `Bearer ${sessionStorage['token']}`,
+          'Content-Type': 'application/json'
+        })
+    })
       .subscribe(
         (result: any) => {
           if (result === undefined) {
@@ -73,24 +81,8 @@ export class AccountComponent implements OnInit {
 
         }
       )
-    /*this.http.get(apiComment)
-      .subscribe(
-        (result: any) => {
-          this.dataComment = result.list;
-          console.log(this.dataComment);
-        },
-        (error) => {
-          console.log(error)
-
-        },
-        () => {
-
-        }
-      )*/
   }
   clickDelete(id: any, image: any): void {
-    console.log(id)
-    console.log(image) //supprimer image
     let body = {
       'idPub': id,
     }
@@ -104,7 +96,7 @@ export class AccountComponent implements OnInit {
     })
       .subscribe(
         (result) => {
-          this.router.navigate(['account']);
+          window.location.reload();
         },
         (error) => {
           console.log(error)
@@ -166,7 +158,8 @@ export class AccountComponent implements OnInit {
       })
         .subscribe(
           (result) => {
-            this.photoValidateMessage = true;
+            this.user();
+            this.photoErrorMessage = false;
           },
           (error) => {
             console.log(error)
@@ -194,6 +187,7 @@ export class AccountComponent implements OnInit {
         .subscribe(
           (result) => {
             this.passwordValidateMessage = true;
+            this.ErrorPassword = false;
           },
           (error) => {
             console.log(error)
@@ -206,6 +200,33 @@ export class AccountComponent implements OnInit {
     } else {
       this.ErrorPassword = true;
     }
+  }
+
+  user(): void {
+    this.http.get(apiUser, {
+      headers: new HttpHeaders(
+        {
+          'Authorization': `Bearer ${sessionStorage['token']}`,
+          'Content-Type': 'application/json'
+        })
+    })
+      .subscribe(
+        (result: any) => {
+          this.dataUser = result.list[0];
+        },
+        (error) => {
+          console.log(error)
+
+        },
+        () => {
+
+        }
+      )
+  }
+  clickNavigate(id: any): void {
+    this.router.navigate([
+      'main/post', id
+    ])
   }
 
 }

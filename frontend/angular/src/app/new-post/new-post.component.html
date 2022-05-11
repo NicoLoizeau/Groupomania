@@ -1,12 +1,12 @@
 <body>
     <div class="post-box">
-        <h1>Publier un nouveau post !</h1>
+        <h1>Quoi de neuf ?</h1>
         <div class="form">
             <form class="login-form">
                 <input [(ngModel)]="titre" name="text" type="text" placeholder="Titre du post" />
                 <input [(ngModel)]="description" name="description" type="text" placeholder="poster un text" />
                 <input (change)="changePhoto($event)" type="file">
-                <button (click)="newPostSubmit()" class="button">Poster !</button>
+                <button (click)="newPostSubmit()" class="button">Partager !</button>
             </form>
         </div>
     </div>

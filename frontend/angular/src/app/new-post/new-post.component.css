@@ -73,9 +73,18 @@ input[type="button"]:focus {
     transition: all 0.3 ease;
 }
 
-.button {
-    text-align: center;
-    width: 320px;
-    height: 35px;
-    margin-top: 20px;
+button {
+    font-family: "Roboto", sans-serif;
+    text-transform: uppercase;
+    outline: 0;
+    background: #4CAF50;
+    border: 0;
+    width: 100%;
+    padding: 8px;
+    color: #FFFFFF;
+    font-size: 14px;
+    -webkit-transition: all 0.3 ease;
+    transition: all 0.3 ease;
+    cursor: pointer;
+    margin-top: 3px;
 }

@@ -8,6 +8,8 @@
 body {
     background: #f1f1f1;
     margin: 2rem;
+    font-family: "Roboto", sans-serif;
+    overflow: hidden;
 }
 
 .blog-card {
@@ -205,4 +207,42 @@ body {
     .blog-card.alt .details {
         padding-left: 25px;
     }
+}
+
+.user {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    box-shadow: silver 5px 3px 0px;
+    border-radius: 5px;
+    font-size: 30px;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+.photoUser {
+    width: 60%;
+}
+
+.changeUserPhoto {
+    border: black 2px solid;
+}
+
+button {
+    font-family: "Roboto", sans-serif;
+    text-transform: uppercase;
+    outline: 0;
+    background: #4CAF50;
+    border: 0;
+    padding: 8px;
+    color: #FFFFFF;
+    font-size: 14px;
+    -webkit-transition: all 0.3 ease;
+    transition: all 0.3 ease;
+    cursor: pointer;
+}
+
+.bandeau {
+    height: 100px;
+    background-image: url(../../assets/images/bandeau.jpg);
 }

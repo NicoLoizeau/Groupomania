@@ -10,14 +10,17 @@
 </div>
 <div class="comment__container">
     <form action="comment">
-        <input [(ngModel)]="commentaire" name="commentaire" type="text" placeholder="Ajouter un commentaire">
+        <input class="commentField" [(ngModel)]="commentaire" name="commentaire" type="text"
+            placeholder="Ajouter un commentaire">
         <button (click)="clickAddComment(commentaire)">Envoyer</button>
     </form>
     <div *ngFor="let comment of dataComment" class="speech-bubble">
-        <p>{{comment.user}}</p>
-        <p>{{comment.date}}</p>
         <div>
-            <p>{{comment.commentaires}}</p>
+            <p>{{comment?.user}}</p>
+            <p>{{comment?.date}}</p>
+        </div>
+        <div class="speech-bubble__text">
+            <p>{{comment?.commentaires}}</p>
         </div>
     </div>
 </div>
