@@ -123,8 +123,6 @@ exports.modify = (req, res, next) => {
         con.query(select,
             (err, results) => {
                 const image = results[0].photo.split('/images/')[1];
-                console.log(image)
-
                 if (results.length == 0) {
                     res.status(401).json({
                         message: 'Utilisateur non trouvé !'

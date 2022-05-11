@@ -114,7 +114,7 @@ export class AccountComponent implements OnInit {
 
   deleteAccount(): void {
     let body = {
-      'email': this.dataUser[0].email
+      'email': this.email
     }
     this.http.delete(apiDeleteAccount.replace(':user', sessionStorage['id']), {
       headers: new HttpHeaders(
@@ -126,8 +126,8 @@ export class AccountComponent implements OnInit {
     })
       .subscribe(
         (result) => {
-          this.router.navigate(['/']);
-
+          this.router.navigate(['../login']);
+          sessionStorage.clear();
         },
         (error) => {
           console.log(error)

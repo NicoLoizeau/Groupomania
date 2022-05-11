@@ -10,18 +10,11 @@ export class NavbarComponent implements OnInit {
 
   constructor(private router: Router) { }
 
-  //auth: boolean = false
 
   ngOnInit(): void {
-    /*if (sessionStorage['id'] = !undefined) {
-      this.auth = true
-    } else {
-      this.auth = false
-    }*/
   }
   clearSessionStorage() {
     this.router.navigate(['../login']);
     sessionStorage.clear();
-    //this.auth = false
   }
 }

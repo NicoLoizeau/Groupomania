@@ -62,7 +62,6 @@ export class MainComponent implements OnInit {
     })
       .subscribe(
         (result: any) => {
-          console.log(result.list)
           this.dataComment = result.list;
         },
         (error) => {
