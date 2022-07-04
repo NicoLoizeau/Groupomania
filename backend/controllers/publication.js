@@ -88,15 +88,33 @@ exports.onePub = (req, res, next) => {
 
 exports.delPub = (req, res, next) => {
     const idPub = (req.body.idPub);
-    const del = `
+    const image =
+        `SELECT publication.image
+    FROM publication 
+    WHERE publication.id = ? 
+    `
+    console.log(image)
+    con.query(image, [idPub], (error, imagepath) => {
+        if (error) throw error
+        const del = `
     DELETE 
     FROM publication 
     WHERE id = ? 
     `;
-    con.query(del, [idPub], (error, result) => {
-        if (error) throw error
+        con.query(del, [idPub], (error, result) => {
+            if (error) throw error
+            console.log(imagepath)
+            if (imagepath.length > 0) {
+                const delimage = imagepath[0].image.split('/images')[1]
+                console.log(delimage)
+                fs.unlink('images/' + delimage, () => { })
+            }
+            res.status(201).json({ message: 'publication supprimée !' })
+
+        })
+
     })
-    res.status(201).json({ message: 'publication supprimée !' })
+
 }
 
 exports.myPub = (req, res, next) => {
