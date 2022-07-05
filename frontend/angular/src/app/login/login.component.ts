@@ -35,6 +35,7 @@ export class LoginComponent implements OnInit {
           sessionStorage.setItem('token', this.data.token);
           sessionStorage.setItem('id', this.data.id);
           sessionStorage.setItem('email', this.data.email);
+          sessionStorage.setItem('mod', this.data.moderate);
           this.router.navigate(['../main']);
         },
         (error) => {

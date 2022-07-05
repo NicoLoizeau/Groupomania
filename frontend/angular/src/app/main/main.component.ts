@@ -18,8 +18,6 @@ export class MainComponent implements OnInit {
   dataComment: any = [];
   id: any = '';
   moderate = false;
-  like = true;
-  notlike = true;
 
 
   constructor(
@@ -49,7 +47,11 @@ export class MainComponent implements OnInit {
 
         }
       )
+    if (sessionStorage['mod'] === 2) {
+      this.moderate = true
+    }
   }
+
   clickNavigate(id: any): void {
     this.router.navigate([
       'main/post', id

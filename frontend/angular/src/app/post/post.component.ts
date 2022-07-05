@@ -18,6 +18,9 @@ export class PostComponent implements OnInit {
   commentaire: any = '';
   id: any = '';
   date: Date = new Date();
+  like = false;
+  notlike = true;
+
 
   constructor(
     private http: HttpClient,
@@ -105,4 +108,17 @@ export class PostComponent implements OnInit {
         }
       )
   }
+  clicklike() {
+    if (this.like == false) {
+      this.like = true;
+      this.notlike = false;
+    }
+    else {
+      this.like = false;
+      this.notlike = true;
+    }
+  }
+
 }
+
+

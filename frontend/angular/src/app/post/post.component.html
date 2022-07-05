@@ -7,6 +7,10 @@
         <h1>{{data?.titre}}</h1>
         <p>{{data?.description}}</p>
     </div>
+    <div (click)="clicklike()">
+        <i *ngIf="notlike" class="notlike fa-regular fa-heart heart"> notlike </i>
+        <i *ngIf="like" class="like fa-solid fa-heart heart"> like </i>
+    </div>
 </div>
 <div class="comment__container">
     <form action="comment">
