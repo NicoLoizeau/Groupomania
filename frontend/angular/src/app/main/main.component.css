@@ -166,6 +166,12 @@ body {
     left: 0%;
 }
 
+.heart {
+    color: red;
+    height: 50px;
+    cursor: pointer;
+}
+
 @media (min-width: 640px) {
     .blog-card {
         flex-direction: row;

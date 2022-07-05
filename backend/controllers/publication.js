@@ -93,7 +93,6 @@ exports.delPub = (req, res, next) => {
     FROM publication 
     WHERE publication.id = ? 
     `
-    console.log(image)
     con.query(image, [idPub], (error, imagepath) => {
         if (error) throw error
         const del = `
@@ -103,10 +102,8 @@ exports.delPub = (req, res, next) => {
     `;
         con.query(del, [idPub], (error, result) => {
             if (error) throw error
-            console.log(imagepath)
             if (imagepath.length > 0) {
                 const delimage = imagepath[0].image.split('/images')[1]
-                console.log(delimage)
                 fs.unlink('images/' + delimage, () => { })
             }
             res.status(201).json({ message: 'publication supprimée !' })

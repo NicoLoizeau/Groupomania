@@ -4,10 +4,19 @@
         <ul class="details">
             <li class="author"><a>{{post.user}}</a></li>
             <li class="date">{{post.date}}</li>
+            <li>
+                <div *ngIf="moderate" class="delete" (click)="clickDelete(post.id, post.image)">
+                    <a>Supprimer</a>
+                </div>
+            </li>
         </ul>
     </div>
     <div class="description">
         <h1>{{post.titre}}</h1>
         <p>{{post.description}}</p>
+    </div>
+    <div>
+        <i *ngIf="notlike" class="notlike" class="fa-regular fa-heart heart">notlike</i>
+        <i *ngIf="like" class="like" class="fa-solid fa-heart heart">like</i>
     </div>
 </div>

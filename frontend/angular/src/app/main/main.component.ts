@@ -5,7 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 const api = 'http://localhost:3000/api/publication/';
 const apiComment = 'http://localhost:3000/api/commentaire/';
-
+const apiDelete = 'http://localhost:3000/api/publication/';
 
 @Component({
   selector: 'app-main',
@@ -17,6 +17,9 @@ export class MainComponent implements OnInit {
   data: any = [];
   dataComment: any = [];
   id: any = '';
+  moderate = false;
+  like = true;
+  notlike = true;
 
 
   constructor(
@@ -72,6 +75,32 @@ export class MainComponent implements OnInit {
 
         }
       )
+  }
+  clickDelete(id: any, image: any): void {
+    let body = {
+      'idPub': id,
+    }
+    this.http.delete(apiDelete, {
+      headers: new HttpHeaders(
+        {
+          'Authorization': `Bearer ${sessionStorage['token']}`,
+          'Content-Type': 'application/json'
+        }),
+      body
+    })
+      .subscribe(
+        (result) => {
+          window.location.reload();
+        },
+        (error) => {
+          console.log(error)
+
+        },
+        () => {
+
+        }
+      )
+
   }
 
 }
