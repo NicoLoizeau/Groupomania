@@ -20,6 +20,7 @@ export class PostComponent implements OnInit {
   date: Date = new Date();
   like = false;
   notlike = true;
+  moderate = false;
 
 
   constructor(
@@ -37,6 +38,10 @@ export class PostComponent implements OnInit {
           this.loadInfoPublication(this.id);
         }
       )
+    if (sessionStorage['mod'] == 2) {
+      this.moderate = true
+    }
+
   }
   clickAddComment(commentaire: any) {
     let body = new FormData();
@@ -118,7 +123,35 @@ export class PostComponent implements OnInit {
       this.notlike = true;
     }
   }
+  clickDeleteCom(id: any): void {
+    console.log(id)
+    console.log(sessionStorage['id'])
+    let body = {
+      'idCom': id,
+      'id': sessionStorage['id']
+    }
+    this.http.delete(apiComment, {
+      headers: new HttpHeaders(
+        {
+          'Authorization': `Bearer ${sessionStorage['token']}`,
+          'Content-Type': 'application/json'
+        }),
+      body
+    })
+      .subscribe(
+        (result) => {
+          window.location.reload();
+        },
+        (error) => {
+          console.log(error)
 
+        },
+        () => {
+
+        }
+      )
+
+  }
 }
 
 

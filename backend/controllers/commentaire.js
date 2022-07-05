@@ -30,7 +30,7 @@ exports.allComPub = (req, res, next) => {
         FROM commentaires
             left join user on commentaires.user = user.id 
         WHERE publication = ?
-        ORDER BY date desc`;//${pub}
+        ORDER BY date desc`;
     con.query(select, [pub], (error, result) => {
         if (error) throw error
         let list = []
@@ -43,8 +43,8 @@ exports.allComPub = (req, res, next) => {
     })
 }
 exports.delOneCom = (req, res, next) => {
-    const user = req.body.user;
-    const id = req.body.id;
+    const user = req.body.id;
+    const id = req.body.idCom;
     con.query(`SELECT * FROM commentaires WHERE user = ${user} AND id = ${id}`,
         (err, result) => {
             if (err) throw err;

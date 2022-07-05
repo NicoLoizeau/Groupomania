@@ -47,7 +47,7 @@ export class MainComponent implements OnInit {
 
         }
       )
-    if (sessionStorage['mod'] === 2) {
+    if (sessionStorage['mod'] == 2) {
       this.moderate = true
     }
   }

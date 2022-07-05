@@ -22,6 +22,9 @@
         <div>
             <p>{{comment?.user}}</p>
             <p>{{comment?.date}}</p>
+            <div *ngIf="moderate" class="delete" (click)="clickDeleteCom(comment.id)">
+                <a>Supprimer</a>
+            </div>
         </div>
         <div class="speech-bubble__text">
             <p>{{comment?.commentaires}}</p>

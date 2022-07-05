@@ -41,7 +41,7 @@ exports.signup = (req, res, next) => {
             } if (regexMail.test(email) && regexPassword.test(req.body.password)) {
                 bcrypt.hash(req.body.password, 10)
                     .then(cryptedPassword => {
-                        const newUser = `INSERT INTO user VALUES (NULL, '${req.body.nom}', '${email}', '${cryptedPassword}', '${photo}')`
+                        const newUser = `INSERT INTO user VALUES (NULL, '${req.body.nom}', '${email}', '${cryptedPassword}', '${photo}', 1)`
                         con.query(newUser,
                             (err) => {
                                 if (err) {
